@@ -55,7 +55,24 @@ await bookingService.book(user);
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+_**The trade-off of DI is the initialization steps are very verbose**_. Especially when the services are using in a nested form.   
+For example, the `ticketStore` might need a `DatabaseConnection` to perform SQL query and `emailService` might need an `SMPT` protocol for sending the email:
 
+{% code-tabs %}
+{% code-tabs-item title="main.js" %}
+```javascript
+const ticketStore    = new TicketStore(new DatabaseConnection());
+const emailService   = new EmailService(new SMTP());
+
+const bookingService = new BookingService(ticketStore, emailService);
+
+// ...
+
+await bookingService.book(user);
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 
 
