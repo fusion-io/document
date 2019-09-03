@@ -47,7 +47,9 @@ const emailService   = new EmailService();
 
 const bookingService = new BookingService(ticketStore, emailService);
 
-await bookingSerivce.book(new User('joedoe@example.com'));
+// ...
+
+await bookingSerivce.book(user);
 
 ```
 {% endcode-tabs-item %}
