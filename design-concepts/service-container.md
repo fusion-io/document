@@ -49,7 +49,7 @@ const bookingService = new BookingService(ticketStore, emailService);
 
 // ...
 
-await bookingSerivce.book(user);
+await bookingService.book(user);
 
 ```
 {% endcode-tabs-item %}
