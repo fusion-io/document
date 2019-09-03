@@ -13,7 +13,7 @@ In short, Dependency Injection \(DI\) is a technique whereby passing or _injecti
 For example, _**a booking service will find a ticket for an user, mark it as booked and send an email to the user about the ticket**_.
 
 {% code-tabs %}
-{% code-tabs-item title="di-example.js" %}
+{% code-tabs-item title="BookingService.js" %}
 ```javascript
 class BookingService {
 
@@ -35,4 +35,6 @@ class BookingService {
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+
 
