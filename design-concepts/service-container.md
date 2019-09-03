@@ -37,5 +37,23 @@ class BookingService {
 
 In the above example, we have injected 2 services into the `BookService`. `ticketStore` for finding an available ticket, and `emailService` for sending the ticket to the user.
 
+To use this `BookingService`, we have to initialize the `ticketStore` and `emailService` first:
+
+{% code-tabs %}
+{% code-tabs-item title="main.js" %}
+```javascript
+const ticketStore    = new TicketStore();
+const emailService   = new EmailService();
+
+const bookingService = new BookingService(ticketStore, emailService);
+
+await bookingSerivce.book(new User('Joe Doe'));
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+
+
 
 
