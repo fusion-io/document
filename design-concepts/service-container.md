@@ -42,10 +42,10 @@ To use this `BookingService`, we have to initialize the `ticketStore` and `email
 {% code-tabs %}
 {% code-tabs-item title="main.js" %}
 ```javascript
-const ticketStore    = new TicketStore();
-const emailService   = new EmailService();
-
-const bookingService = new BookingService(ticketStore, emailService);
+const bookingService = new BookingService(
+    new TicketStore(), 
+    new EmailService()
+);
 
 // ...
 
@@ -55,16 +55,16 @@ await bookingService.book(user);
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-_**The trade-off of DI is the initialization steps are very verbose**_. Especially when the services are using in a nested form.   
+_**The trade-off of DI is the complexity of initialization steps**_. Especially when the services are using in a nested form.   
 For example, the `ticketStore` might need a `DatabaseConnection` to perform SQL query and `emailService` might need an `SMPT` protocol for sending the email:
 
 {% code-tabs %}
 {% code-tabs-item title="main.js" %}
 ```javascript
-const ticketStore    = new TicketStore(new DatabaseConnection());
-const emailService   = new EmailService(new SMTP());
-
-const bookingService = new BookingService(ticketStore, emailService);
+const bookingService = new BookingService(
+    new TicketStore(new DatabaseConnection()), 
+    new EmailService(new SMTP())
+);
 
 // ...
 
@@ -73,6 +73,51 @@ await bookingService.book(user);
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+In real world application, the source code is even more complicated.
+
+The Service Container was designed to address this problem.
+
+## Service Container
+
+_A service container is a simple map object for holding and getting dependencies/services.   
+To use the Service Container, we need to install it from NPM_
+
+```bash
+npm install @fusion.io/container
+```
+
+### Binding a service
+
+To bind a service into Service Container, we'll use the `.bind()` method
+
+{% code-tabs %}
+{% code-tabs-item title="bind-example.js" %}
+```javascript
+import { container } from '@fusion.io/container';
+import HelloService from './HelloService';
+
+container.bind('helloService', () => {
+    return new HelloService();
+});
+
+```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title="HelloService.js" %}
+```javascript
+export default class HelloService {
+    
+    sayHello() {
+        return 'Hello World';
+    }
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+
 
 
 
