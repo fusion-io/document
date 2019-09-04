@@ -87,9 +87,9 @@ To use the Service Container, we need to install it from NPM_
 npm install @fusion.io/container
 ```
 
-### Binding a service
+### Binding  basics
 
-To bind a service into Service Container, we'll use the `.bind()` method
+To bind a service into Service Container, we'll use the `.bind()` method:
 
 {% code-tabs %}
 {% code-tabs-item title="bind-example.js" %}
@@ -100,7 +100,6 @@ import HelloService from './HelloService';
 container.bind('helloService', () => {
     return new HelloService();
 });
-
 ```
 {% endcode-tabs-item %}
 
@@ -117,7 +116,19 @@ export default class HelloService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The `.bind()` method requires 2 parameters: the dependency key `helloService` and a function returning an instance of the service - we call it as a `Factory Function`.
 
+After we bind a service, we can retrieve it from the container by calling the `.make()` method:
 
+```javascript
+const helloService = container.make('helloService');
 
+console.log(helloService.sayHello()); // Hello World
+```
+
+You can also call the .make\(\) method inside the a `Factory Function`: 
+
+```text
+// 
+```
 
