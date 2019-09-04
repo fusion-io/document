@@ -74,9 +74,15 @@ await bookingService.book(user);
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-In real world application, the source code is even more complicated.
+To create an instance of `BookingService`, we first need to know how to create a `TicketStore` service, which in turns need to know how to create a `DatabaseConnection` and so on... In real world application, the source code is even more complicated. 
 
-The Service Container was designed to address this problem.
+The Service Container of Fusion Framework was created to address this problem.
+
+{% hint style="info" %}
+**Service Container** has another name called **Inversion of Control Container** or **IoC Container**.
+
+Fusion Service Container was inspired by [**Laravel's Service Container**](https://laravel.com/docs/6.0/container#introduction).
+{% endhint %}
 
 ## Service Container
 
@@ -97,9 +103,7 @@ To bind a service into Service Container, we'll use the `.bind()` method:
 import { container } from '@fusion.io/container';
 import HelloService from './HelloService';
 
-container.bind('helloService', () => {
-    return new HelloService();
-});
+container.bind('helloService', () => new HelloService());
 ```
 {% endcode-tabs-item %}
 
@@ -126,9 +130,21 @@ const helloService = container.make('helloService');
 console.log(helloService.sayHello()); // Hello World
 ```
 
-You can also call the .make\(\) method inside the a `Factory Function`: 
+We can also call the `.make()` method inside the a `Factory Function`. By doing so we can  instruct the container how to make a service with nested dependencies easily:
 
-```text
-// 
+```javascript
+container.bind('fooService', () => new FooService());
+container.bind('barService', () => new BarService(container.make('fooService')));
+container.bind('fooBarService', () => new FooBarService(container.make('barService')));
+
+const foobarService = container.make('foobarService');
 ```
+
+In the above example, we have a `fooBarService` is using the `barService` as a dependency. And the `barService` is using `fooService` as a dependency for itself.
+
+### Binding vs Singleton
+
+// TODO
+
+
 
