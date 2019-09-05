@@ -280,31 +280,6 @@ class MyService {
 
 ```
 
-{% hint style="warning" %}
-**The down-side of over using `autoBind()`and`decorator` for injection is tight coupling.**
-{% endhint %}
-
-When you inject a service via autoBind/decorator, the consumer code **MUST** import your service class to start using it.
-
-{% code-tabs %}
-{% code-tabs-item title="Consumer.js" %}
-```javascript
-import Service  from './Service';
-import { bind } from '@fusion.io/container';
-
-class Consumer {
-    constructor(service) {
-
-        //
-    }
-}
-
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-This tight coupling problem might lead to bad design code.
-
 ### Inversion binding
 
 A best practice to approach **DI** is binding a **Concrete** service to the Container with an **Abstract** key. This will help your source code following the [Dependency Inversion Principle](https://martinfowler.com/articles/dipInTheWild.html). Here is a demonstration about it:
