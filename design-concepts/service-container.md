@@ -74,7 +74,7 @@ await bookingService.book(user);
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-To create an instance of `BookingService`, we first need to know how to create a `TicketStore` service, which in turns need to know how to create a `DatabaseConnection` and so on... In real world application, the source code is even more complicated. 
+To create an instance of `BookingService`, we first need to know how to create a `TicketStore` service, which in turn needs to know how to create a `DatabaseConnection` and so on... In real world application, the source code is even more complicated. 
 
 The Service Container of Fusion Framework was created to address this problem.
 
@@ -130,7 +130,7 @@ const helloService = container.make('helloService');
 console.log(helloService.sayHello()); // Hello World
 ```
 
-We can also call the `.make()` method inside the a `Factory Function`. By doing so we can  instruct the container how to make a service with nested dependencies easily:
+We can also call the `.make()` method inside the `Factory Function`. By doing so we can  instruct the container how to make a service with nested dependencies easily:
 
 ```javascript
 container.bind('fooService', () => new FooService());
@@ -240,7 +240,7 @@ class MyService {
 
 container.autoBind(Dependency1);
 container.autoBind(Dependency2);
-container.autoBind(Dependency1);
+container.autoBind(MyService);
 ```
 
 Similar to `autoBind()`, we also support `autoSingleton()`.
