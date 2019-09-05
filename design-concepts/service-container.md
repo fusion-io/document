@@ -93,7 +93,7 @@ To use the Service Container, we need to install it from NPM_
 npm install @fusion.io/container
 ```
 
-### Binding  basics
+### Binding basics
 
 To bind a service into Service Container, we'll use the `.bind()` method:
 
@@ -166,7 +166,7 @@ const instance2 = container.make('fooService');
 console.log(instance1 === instance2); // true
 ```
 
-### Auto bindings
+### Auto binding
 
 {% hint style="info" %}
 Thanks to ES6 Map, the dependency key is not limited to string value, but any value can be used. Even a class
@@ -271,7 +271,7 @@ class MyService {
 }
 ```
 
-### Inversion bindings
+### Inversion binding
 
 // TODO
 
