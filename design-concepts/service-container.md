@@ -166,5 +166,108 @@ const instance2 = container.make('fooService');
 console.log(instance1 === instance2); // true
 ```
 
+### Auto bindings
 
+{% hint style="info" %}
+Thanks to ES6 Map, the dependency key is not limited to string value, but any value can be used. Even a class
+
+```javascript
+class FooService {
+
+}
+
+container.bind(FooService, () => new FooService());
+```
+{% endhint %}
+
+Most of the time, you may find your factory function is doing nothing but 2 steps: making dependencies and creating a new service instance with those dependencies:
+
+```javascript
+class Dependency1 {
+
+}
+
+class Dependency2 {
+
+}
+
+class MyService {
+    constructor(dependency1, dependency2) {
+        this.dependency1 = dependency1;
+        this.dependency2 = dependency2;
+    }
+    
+    // ...
+}
+
+container.bind(Dependency1, () => new Dependency1());
+container.bind(Dependency2, () => new Dependency2());
+
+// We'll do this most of the time
+container.bind(MyService, () => new MyService(
+    container.make(Dependency1),
+    container.make(Depenency2)
+));
+```
+
+So instead of doing this again and again, we support an `autoBind()` method. The above example can be equivalent to:
+
+```javascript
+class Dependency1 {
+    static get dependencies() {
+        return [];
+    }
+}
+
+class Dependency2 {
+    static get dependencies() {
+        return [];
+    }
+}
+
+class MyService {
+    constructor(dependency1, dependency2) {
+        this.dependency1 = dependency1;
+        this.dependency2 = dependency2;
+    }
+    
+    static get dependencies() {
+        return [Dependency1, Dependency2];
+    }
+    
+    // ...
+}
+
+container.autoBind(Dependency1);
+container.autoBind(Dependency2);
+container.autoBind(Dependency1);
+```
+
+Similar to `autoBind()`, we also support `autoSingleton()`.
+
+We also support a ES7 decorators, so you can shorten the above code to this:
+
+```javascript
+import { bind } from '@fusion.io/container';
+
+@bind()
+class Dependency1 {
+
+}
+
+@bind()
+class Dependency2 {
+
+}
+
+@bind(Dependency1, Dependency2)
+class MyService {
+    constructor(dependency1, dependency2) {
+        this.dependency1 = dependency1;
+        this.dependency2 = dependency2;
+    }
+    
+    // ...
+}
+```
 
