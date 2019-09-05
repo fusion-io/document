@@ -271,3 +271,9 @@ class MyService {
 }
 ```
 
+That's all you need to know about DI with @fusion.io/container for now 👍
+
+{% hint style="info" %}
+**@fusion.io/container** is having zero dependency and can be used in any javascript project. 
+{% endhint %}
+
