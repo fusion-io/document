@@ -245,7 +245,7 @@ container.autoBind(Dependency1);
 
 Similar to `autoBind()`, we also support `autoSingleton()`.
 
-We also support a ES7 decorators, so you can shorten the above code to this:
+We also support `bind()`, `singleton()` functions as ES7 decorators, so you can shorten the above code to this:
 
 ```javascript
 import { bind } from '@fusion.io/container';
