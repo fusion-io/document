@@ -31,6 +31,7 @@ class BookingService {
     }
 }
 
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -104,6 +105,7 @@ import { container } from '@fusion.io/container';
 import HelloService from './HelloService';
 
 container.bind('helloService', () => new HelloService());
+
 ```
 {% endcode-tabs-item %}
 
@@ -138,6 +140,7 @@ container.bind('barService', () => new BarService(container.make('fooService')))
 container.bind('fooBarService', () => new FooBarService(container.make('barService')));
 
 const fooBarService = container.make('fooBarService');
+
 ```
 
 In the above example, we have a `fooBarService` is using the `barService` as a dependency. And the `barService` is using `fooService` as a dependency for itself.
@@ -153,6 +156,7 @@ const instance1 = container.make('fooService');
 const instance2 = container.make('fooService');
 
 console.log(instance1 === instance2); // false
+
 ```
 
 Sometimes, we only need one instance of service or a _singleton_, and every time we calling `make()`, we can get back the same instance. We can archive this by using the `singleton()` method instead of `bind()`:
@@ -164,6 +168,7 @@ const instance1 = container.make('fooService');
 const instance2 = container.make('fooService');
 
 console.log(instance1 === instance2); // true
+
 ```
 
 ### Auto binding
@@ -177,6 +182,7 @@ class FooService {
 }
 
 container.bind(FooService, () => new FooService());
+
 ```
 {% endhint %}
 
@@ -208,6 +214,7 @@ container.bind(MyService, () => new MyService(
     container.make(Dependency1),
     container.make(Dependency2)
 ));
+
 ```
 
 So instead of doing this again and again, we support an `autoBind()` method. The above example can be equivalent to:
@@ -241,9 +248,10 @@ class MyService {
 container.autoBind(Dependency1);
 container.autoBind(Dependency2);
 container.autoBind(MyService);
+
 ```
 
-Similar to `autoBind()`, we also support `autoSingleton()`.
+Similar to `autoBind()`, we support `autoSingleton()`.
 
 We also support `bind()`, `singleton()` functions as ES7 decorators, so you can shorten the above code to this:
 
@@ -269,11 +277,89 @@ class MyService {
     
     // ...
 }
+
 ```
 
 ### Inversion binding
 
-// TODO
+A best practice to approach **DI** is binding a **Concrete** service to the Container with an **Abstract** key. This will help your source code following the [Dependency Inversion Principle](https://martinfowler.com/articles/dipInTheWild.html). Here is a demonstration about it:
+
+First we'll create an **Abstract** key which the value was `SomeService`
+
+{% code-tabs %}
+{% code-tabs-item title="SomeService.js" %}
+```javascript
+export default const SomeService = 'SomeService';
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+We'll create `MyService` as the **Concrete** service and bind it into the container with the abstract key `SomeService`
+
+{% code-tabs %}
+{% code-tabs-item title="MyService.js" %}
+```javascript
+import { container } from '@fusion.io/container';
+
+export default class MyService {
+
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Now, we instruct the Service Container that `MyService` is a concrete of the key `SomeService`
+
+{% code-tabs %}
+{% code-tabs-item title="main.js" %}
+```javascript
+import SomeService from './SomeService';
+import MyService   from './MyService';
+
+container.bind(SomeService, () => new MyService());
+
+// ...
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+By doing so, the consumer code which using the service as dependecy does not need to be aware about the **Concrete** service - `MyService`, but the **Abstract** key - `SomeService`.
+
+{% code-tabs %}
+{% code-tabs-item title="Consumer.js" %}
+```javascript
+import SomeService from './SomeService';
+
+@bind(SomeService)
+export default class Consumer {
+    constructor(someService) {
+        // Here we'll got MyService instance
+        this.someService = someService;
+    }
+    
+    // ...
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Now, in the _main.js_ we can have the final result like this:
+
+```javascript
+import SomeService from './SomeService';
+import MyService   from './MyService';
+import Consumer    from './Consumer';
+
+container.bind(SomeService, () => new MyService());
+
+const consumer = container.make(Consumer);
+
+// working with the consumer
+
+```
 
 ### Method Injection
 
