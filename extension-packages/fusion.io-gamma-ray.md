@@ -1,6 +1,6 @@
 ---
-description: Event based dashboard
+description: '@fusion.io/gamma-ray Event based dashboard'
 ---
 
-# @fusion.io/gamma-ray
+# Fusion Gamma Ray
 

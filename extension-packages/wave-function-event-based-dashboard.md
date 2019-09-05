@@ -1,6 +1,6 @@
 ---
-description: Real time channel controller
+description: '@fusion.io/wave-function Real time channel controller'
 ---
 
-# @fusion.io/wave-function
+# Fusion Wave Function
 

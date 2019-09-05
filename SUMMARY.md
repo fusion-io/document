@@ -32,6 +32,7 @@
 
 ## Extension packages
 
-* [@fusion.io/gamma-ray](extension-packages/fusion.io-gamma-ray.md)
-* [@fusion.io/wave-function](extension-packages/wave-function-event-based-dashboard.md)
+* [Fusion Electric Charge](extension-packages/fusion-electric-charge.md)
+* [Fusion Gamma Ray](extension-packages/fusion.io-gamma-ray.md)
+* [Fusion Wave Function](extension-packages/wave-function-event-based-dashboard.md)
 
