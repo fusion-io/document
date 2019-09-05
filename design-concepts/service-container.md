@@ -275,6 +275,10 @@ class MyService {
 
 // TODO
 
+### Method Injection
+
+// TODO
+
 That's all you need to know about DI with @fusion.io/container for now 👍
 
 {% hint style="info" %}
