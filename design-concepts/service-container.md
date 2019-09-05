@@ -137,14 +137,34 @@ container.bind('fooService', () => new FooService());
 container.bind('barService', () => new BarService(container.make('fooService')));
 container.bind('fooBarService', () => new FooBarService(container.make('barService')));
 
-const foobarService = container.make('foobarService');
+const fooBarService = container.make('fooBarService');
 ```
 
 In the above example, we have a `fooBarService` is using the `barService` as a dependency. And the `barService` is using `fooService` as a dependency for itself.
 
-### Binding vs Singleton
+### Singleton binding
 
-// TODO
+If your service was bounded to the to the container via `.bind()` . Every time we call the `.make()` method, the container will invoke the `Factory Function` again to get your service instance. 
+
+```javascript
+container.bind('fooService', () => new FooService());
+
+const instance1 = container.make('fooService');
+const instance2 = container.make('fooService');
+
+console.log(instance1 === instance2); // false
+```
+
+Sometimes, we only need only one instance of service or a _singleton_, and every time we calling `make()`, we can get back have the same instance. We can archive this by using the `singleton()` method to instead of `bind()`:
+
+```javascript
+container.singleton('fooService', () => new FooService());
+
+const instance1 = container.make('fooService');
+const instance2 = container.make('fooService');
+
+console.log(instance1 === instance2); // true
+```
 
 
 
