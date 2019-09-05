@@ -9,6 +9,7 @@
 * [Fusion Proton](fusion-proton/README.md)
   * [Routing](fusion-proton/routing.md)
   * [View](fusion-proton/view.md)
+  * [Error Handling](fusion-proton/error-handling.md)
 * [Fusion Photon](fusion-photon.md)
 * [Fusion Neutron](fusion-neutron.md)
 
@@ -16,6 +17,7 @@
 
 * [Authentication](packages/authentication.md)
 * [Authorization](packages/authorization.md)
+* [Caching](packages/caching.md)
 * [Core](packages/core.md)
 * [CLI](packages/cli.md)
 * [Database](packages/database/README.md)
@@ -27,4 +29,9 @@
 * [Queue](packages/queue.md)
 * [Utilities](packages/utilities.md)
 * [Validation](packages/validation.md)
+
+## Extension packages
+
+* [@fusion.io/gamma-ray](extension-packages/fusion.io-gamma-ray.md)
+* [@fusion.io/wave-function](extension-packages/wave-function-event-based-dashboard.md)
 

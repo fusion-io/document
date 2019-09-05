@@ -10,11 +10,6 @@ description: 'The framework for the Geeks, by the Geeks'
 >
 > Rikky
 
-We provided numbers of packages for number of application types:
 
-* Fusion Proton focusing on web/api development on server side;
-* Fusion Photon enhanced the way we work with websocket server;
-* Fusion Neutron was designed to work with serverless and/or microservice architectures.
 
-Before you start, we recommend you first check our design concepts for better understanding this framework. 
-
+* 
