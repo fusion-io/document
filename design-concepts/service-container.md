@@ -155,7 +155,7 @@ const instance2 = container.make('fooService');
 console.log(instance1 === instance2); // false
 ```
 
-Sometimes, we only need one instance of service or a _singleton_, and every time we calling `make()`, we can get back have the same instance. We can archive this by using the `singleton()` method instead of `bind()`:
+Sometimes, we only need one instance of service or a _singleton_, and every time we calling `make()`, we can get back the same instance. We can archive this by using the `singleton()` method instead of `bind()`:
 
 ```javascript
 container.singleton('fooService', () => new FooService());
@@ -206,7 +206,7 @@ container.bind(Dependency2, () => new Dependency2());
 // We'll do this most of the time
 container.bind(MyService, () => new MyService(
     container.make(Dependency1),
-    container.make(Depenency2)
+    container.make(Dependency2)
 ));
 ```
 
