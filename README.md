@@ -10,6 +10,3 @@ description: 'The framework for the Geeks, by the Geeks'
 >
 > Rikky
 
-
-
-* 

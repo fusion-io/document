@@ -362,7 +362,25 @@ const consumer = container.make(Consumer);
 
 ### Method Injection
 
-// TODO
+Sometimes, using constructor injection is overhead. You may find your self using just some dependencies in your class method. We can use the `inject()` decorator for such situation:
+
+```javascript
+import { inject } from '@fusion.io/container';
+
+class MyService {
+    
+    @inject('dependency')
+    someMethod(parameter1, parameter2, depdency) {
+        //
+    }
+}
+
+const myService = new Service();
+
+myService.someMehod('foo', 'bar');
+```
+
+When using the `.inject()` decorator, the dependency you specified will be passed to your class method as the last parameters. 
 
 That's all you need to know about DI with @fusion.io/container for now 👍
 
